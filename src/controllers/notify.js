@@ -25,7 +25,7 @@ exports.notify = async (req, res) => {
     to: '495174699@qq.com',
     subject: '充值成功通知',
     text: `用户 ${userId} 充值 ${amount} 元`,
-    html: `<a href="http://localhost:8999/api/recharge?userId=${userId}&amount=${amount}&uuid=${uuid}">点击充值</a> | <a href="http://localhost:8999/api/recharge?userId=${userId}&amount=1">充值1元按钮</a>`
+    html: `<a href="http://23.94.66.43:8999/api/recharge?userId=${userId}&amount=${amount}&uuid=${uuid}">点击充值</a> | <a href="http://23.94.66.43:8999/api/recharge?userId=${userId}&amount=1">充值1元按钮</a>`
   }).then(info => {
     console.log('邮件发送成功');
   }).catch(err => {
