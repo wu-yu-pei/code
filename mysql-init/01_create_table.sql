@@ -7,3 +7,12 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 )
+
+CREATE TABLE `phones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `create_at` timestamp NULL DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
