@@ -7,8 +7,7 @@ const key = 'ctNxAG9jR75mXy16JMTDPGKnWZYEhXMp'
  * 列表
  */
 exports.list = async (req, res) => {
-  const { userId } = req.user.userId
-
+  const { userId } = req.user
   // userID 必须再数据库中有
   const [rows] = await pool.query('SELECT id FROM users WHERE id = ?', [userId])
   if (rows.length === 0) {
@@ -25,7 +24,7 @@ exports.list = async (req, res) => {
 
 // 获取一个号码
 exports.get = async (req, res) => {
-  const { userId } = req.user.userId
+  const { userId } = req.user
   const { feature, province, cardtype } = req.query
 
   if (!feature) return res.status(400).json({ message: '请填写特征码!' })
@@ -49,7 +48,7 @@ exports.get = async (req, res) => {
 
 // 移除使用的号码
 exports.block = async (req, res) => {
-  const { userId } = req.user.userId
+  const { userId } = req.user
   const { phone } = req.query
 
   // 号码不存在
@@ -71,7 +70,7 @@ exports.block = async (req, res) => {
 
 // 获取验证码
 exports.code = async (req, res) => {
-  const { userId } = req.user.userId
+  const { userId } = req.user
   const { phone } = req.query
 
   // 号码不存在
