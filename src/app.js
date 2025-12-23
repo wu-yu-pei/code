@@ -4,9 +4,11 @@ const rechargeRoutes = require('./routes/rechargeRoutes')
 const notifyRoutes = require('./routes/notifyRoutes')
 const phoneRoutes = require('./routes/phoneRoutes')
 const auth = require('./middlewares/auth.middleware')
+const cors = require('cors')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/recharge', rechargeRoutes)
