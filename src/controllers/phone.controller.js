@@ -85,5 +85,7 @@ exports.code = async (req, res) => {
   if (data.code !== 1) {
     return res.status(500).json({ message: '获取验证码失败,请稍后再试' })
   }
+  // 扣钱
+  
   res.status(200).json({ message: data.data })
 }
