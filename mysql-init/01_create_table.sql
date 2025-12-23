@@ -6,7 +6,7 @@ CREATE TABLE `users` (
   `money` bigint DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-)
+);
 
 CREATE TABLE `phones` (
   `id` int NOT NULL AUTO_INCREMENT,
