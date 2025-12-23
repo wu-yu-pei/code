@@ -17,7 +17,9 @@ exports.list = async (req, res) => {
 
   const list = await pool.query('SELECT phone FROM phones WHERE user_id = ? AND status = 1 ORDER BY create_at DESC', [userId])
 
-  res.status(200).json({ phones: list[0] })
+  const userInfo = await pool.query('SELECT money FROM users WHERE id = ?', [userId])
+
+  res.status(200).json({ phones: list[0], userInfo: userInfo[0] })
 }
 
 
