@@ -5,7 +5,8 @@ const nodemailer = require('nodemailer');
  * 注册
  */
 exports.notify = async (req, res) => {
-  const { userId, amount } = req.query
+  const { userId } = req.user.userId
+  const { amount } = req.query
   // 受用nodemeailer发送通知邮件给 495174699@qq.com
   // 创建 transporter（用你自己的 SMTP 配置）
   const transporter = nodemailer.createTransport({
