@@ -58,6 +58,6 @@ jobs:
 
             export IMAGE_TAG=${{ github.sha }}
 
-            docker compose -f docker-compose.yaml up -d
+            docker compose -f docker-compose.yml up -d
 
             docker image prune -f
