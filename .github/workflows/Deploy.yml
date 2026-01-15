@@ -34,7 +34,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.ACCESS_TOKEN }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
           port: 22
           source: image.tar
           target: /home/docker
@@ -45,7 +45,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.ACCESS_TOKEN }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
           port: 22
           script: |
             cd /home/docker
