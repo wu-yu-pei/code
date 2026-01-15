@@ -18,9 +18,7 @@ services:
       - ./mysql-init:/docker-entrypoint-initdb.d # 挂载初始化 SQL
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: share-api:${IMAGE_TAG}
     container_name: dev-api
     restart: always
     ports:
