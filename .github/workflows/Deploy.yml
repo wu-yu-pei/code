@@ -1,0 +1,59 @@
+name: WORK
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: share-api
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+      # 1️⃣ 拉代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2️⃣ 构建 Docker 镜像
+      - name: Build Docker image
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+
+      # 3️⃣ 保存镜像为文件（构建产物）
+      - name: Save Docker image
+        run: |
+          docker save $IMAGE_NAME:$IMAGE_TAG > image.tar
+
+      # 4️⃣ 拷贝镜像到服务器
+      - name: Copy image to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.ACCESS_TOKEN }}
+          port: 22
+          source: image.tar
+          target: /home/docker
+
+      # 5️⃣ SSH 到服务器部署
+      - name: Deploy on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.ACCESS_TOKEN }}
+          port: 22
+          script: |
+            cd /home/docker
+
+            docker load < image.tar
+
+            export IMAGE_TAG=${{ github.sha }}
+
+            docker compose -f docker-compose.prod.yml up -d
+
+            docker image prune -f
